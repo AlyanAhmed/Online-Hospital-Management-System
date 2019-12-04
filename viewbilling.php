@@ -30,12 +30,12 @@ $rsbilling_records = mysqli_fetch_array($qsqlbilling_records);
           	<td width="413"> <?php echo $rsbilling_records[appointmentid]; ?>
             </td>
         </tr>
-         
+
 		<tr>
 		  <th scope="col"><div align="right">Billing Date &nbsp; </div></th>
 		  <td>&nbsp;<?php echo $rsbilling_records[billingdate]; ?></td>
 	    </tr>
-        
+
 		<tr>
 		  <th scope="col"><div align="right">Billing time&nbsp; </div></th>
 		  <td>&nbsp;<?php echo $rsbilling_records[billingtime] ; ?></td>
@@ -61,22 +61,6 @@ $rsbilling_records = mysqli_fetch_array($qsqlbilling_records);
           	<td>&nbsp;$rs[bill_date]</td>
 		 	<td>&nbsp; $rs[bill_type]";
 
-if($rs[bill_type] == "Service Charge")
-{
- 	 $sqlservice_type1 = "SELECT * FROM service_type WHERE service_type_id='$rs[bill_type_id]'";
-	$qsqlservice_type1 = mysqli_query($con,$sqlservice_type1);
-	$rsservice_type1 = mysqli_fetch_array($qsqlservice_type1);
-	echo " - " . $rsservice_type1[service_type];
-}
-			
-
-if($rs[bill_type]== "Room Rent")
-{
-		$sqlroomtariff = "SELECT * FROM room WHERE roomid='$rs[bill_type_id]'";
-		$qsqlroomtariff = mysqli_query($con,$sqlroomtariff);
-		$rsroomtariff = mysqli_fetch_array($qsqlroomtariff);
-		echo " : ". $rsroomtariff[roomtype] .  "- Room No." . $rsroomtariff[roomno];
-}
 
 if($rs[bill_type] == "Consultancy Charge")
 {
@@ -88,7 +72,7 @@ if($rs[bill_type] == "Consultancy Charge")
 }
 
 if($rs[bill_type] =="Treatment Cost")
-{	
+{
 	//Treatment Cost
 	$sqltreatment = "SELECT * FROM treatment WHERE treatmentid='$rs[bill_type_id]'";
 	$qsqltreatment = mysqli_query($con,$sqltreatment);
@@ -101,7 +85,7 @@ if($rs[bill_type]  == "Prescription charge")
 	$sqltreatment = "SELECT * FROM prescription WHERE treatmentid='$rs[bill_type_id]'";
 	$qsqltreatment = mysqli_query($con,$sqltreatment);
 	$rstreatment = mysqli_fetch_array($qsqltreatment);
-		
+
 	$sqltreatment1 = "SELECT * FROM treatment_records WHERE treatmentid='$rstreatment[treatment_records_id]'";
 	$qsqltreatment1 = mysqli_query($con,$sqltreatment1);
 	$rstreatment1 = mysqli_fetch_array($qsqltreatment1);
@@ -110,7 +94,7 @@ if($rs[bill_type]  == "Prescription charge")
 	$qsqltreatment2 = mysqli_query($con,$sqltreatment2);
 	$rstreatment2 = mysqli_fetch_array($qsqltreatment2);
 	echo 	" - " . $rstreatment2[treatmenttype];
-} 
+}
 
 	echo " </td><td>&nbsp;Rs. $rs[bill_amount]</td></tr>";
 		$billamt = $billamt +  $rs[bill_amount];
@@ -130,17 +114,17 @@ if($rs[bill_type]  == "Prescription charge")
           	<td width="95">&nbsp;Rs. <?php echo $taxamt = 5 * ($billamt / 100); ?>
             </td>
         </tr>
-         
+
 		<tr>
 		  <th scope="col"><div align="right">Discount &nbsp; </div></th>
 		  <td>&nbsp;Rs. <?php echo $rsbilling_records[discount]; ?></td>
 	    </tr>
-        
+
 		<tr>
 		  <th scope="col"><div align="right">Grand Total &nbsp; </div></th>
 		  <td>&nbsp;Rs. <?php echo ($billamt + $taxamt)  - $rsbilling_records[discount] ; ?></td>
 	    </tr>
       </tbody>
     </table>
-  
+
     </section>
