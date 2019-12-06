@@ -24,7 +24,7 @@ if(isset($_POST[submit]))
 		$lastinsid = mysqli_insert_id($con);
 	}
 
-	$sqlappointment="SELECT * FROM appointment WHERE (appointmentdate='$_POST[appointmentdate]' AND appointmenttime='$_POST[appointmenttime]' AND doctorid='$_POST[doct]' AND status='Pending')";
+	$sqlappointment="SELECT * FROM appointment WHERE (appointmentdate='$_POST[appointmentdate]' AND appointmenttime='$_POST[appointmenttime]' AND doctorid='$_POST[doct]' AND (status='Pending' OR status='Approved'))";
 	$qsqlappointment = mysqli_query($con,$sqlappointment);
 	if(mysqli_num_rows($qsqlappointment) >= 1)
 	{
